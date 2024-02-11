@@ -1,0 +1,7 @@
+#ifndef NO_FILE_SYSTEM_CONFIG_H
+#define NO_FILE_SYSTEM_CONFIG_H
+
+#define G_COMPILE_TIME "@G_COMPILE_TIME@"
+
+#endif
+
