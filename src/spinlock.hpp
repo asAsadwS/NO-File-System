@@ -3,16 +3,15 @@
 
 #include <stdint.h>
 
-struct T_SPINLOCK {
-	void* lock_ptr;
+volatile struct T_SPINLOCK {
 };
 
-int spinlock_get ( struct T_SPINLOCK& lock );
-int spinlock_tryget ( struct T_SPINLOCK& lock );
+uint8_t spinlock_get ( struct T_SPINLOCK& lock );
+uint8_t spinlock_tryget ( struct T_SPINLOCK& lock );
 
-int spinlock_release ( struct T_SPINLOCK& lock );
+uint8_t spinlock_release ( struct T_SPINLOCK& lock );
 
-int spinlock_create ( struct T_SPINLOCK& lock );
-int spinlock_delete ( struct T_SPINLOCK& lock );
+uint8_t spinlock_create ( struct T_SPINLOCK& lock );
+uint8_t spinlock_delete ( struct T_SPINLOCK& lock );
 
 #endif
