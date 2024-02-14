@@ -15,27 +15,4 @@
 	along with NO-File-System.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef NO_FILE_SYSTEM_LOGL_HPP
-#define NO_FILE_SYSTEM_LOGL_HPP
-
-#include <cstdio>
-#include <mutex>
-#include <list>
-
-class T_LOGPOOL {
-private:
-	std::mutex lock;
-	std::list<void*> cache;
-	std::FILE* disk_file;
-public:
-	T_LOGPOOL (const char* path);
-	~T_LOGPOOL ();
-
-	uint8_t write (size_t offset, void* buffer, size_t size);
-
-	uint8_t flush (void);
-	uint8_t check (void);
-	uint8_t sync (void);
-};
-
-#endif
+#include "config.h"

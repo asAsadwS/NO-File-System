@@ -1,3 +1,18 @@
+#   Copyright (C) 2024  asAsadwS
+
+#   NO-File-System is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+
+#   NO-File-System  is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+
+#   You should have received a copy of the GNU General Public License
+#   along with NO-File-System.  If not, see <https://www.gnu.org/licenses/>.
+
 set (NOFS_VERSION_MAJOR 0)
 set (NOFS_VERSION_MINOR 0)
 set (NOFS_VERSION_PATCH 0)
@@ -5,10 +20,10 @@ set (NOFS_VERSION ${NOFS_VERSION_MAJOR}.${NOFS_VERSION_MINOR}.${NOFS_VERSION_PAT
 
 set (TIMESTAMP G_COMPILE_TIME %y%m%d)
 
-set (SRC_LIST config.c nofs.cpp blockl.cpp logl.cpp)
-set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/config.h nofs.hpp io.h blockl.hpp logl.hpp)
+set (SRC_LIST nofs.cpp blockl.cpp logl.cpp config.cpp)
+set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/add.h nofs.hpp io.hpp blockl.hpp logl.hpp config.hpp)
 
-configure_file (config.h.in ${PROJECT_BINARY_DIR}/src/config.h)
+configure_file (add.h.in ${PROJECT_BINARY_DIR}/src/add.h)
 
 include_directories (. ${PROJECT_BINARY_DIR}/src)
 
