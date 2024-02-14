@@ -5,13 +5,14 @@ set (NOFS_VERSION ${NOFS_VERSION_MAJOR}.${NOFS_VERSION_MINOR}.${NOFS_VERSION_PAT
 
 set (TIMESTAMP G_COMPILE_TIME %y%m%d)
 
-set (SRC_LIST config.c nofs.cpp spinlock.cpp)
-set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/config.h nofs.hpp spinlock.hpp)
+set (SRC_LIST config.c nofs.cpp blockl.cpp logl.cpp)
+set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/config.h nofs.hpp io.h blockl.hpp logl.hpp)
 
 configure_file (config.h.in ${PROJECT_BINARY_DIR}/src/config.h)
 
 include_directories (. ${PROJECT_BINARY_DIR}/src)
 
+add_link_options (-lpthread)
 add_compile_options (-Werror -Wall -Wextra)
 
 set (CMAKE_C_STANDARD 11)
