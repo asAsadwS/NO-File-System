@@ -17,8 +17,9 @@
 
 #include "io.hpp"
 #include "config.hpp"
-
 #include <cstring>
+
+namespace nofs {
 
 static inline uint8_t write_file(FILE* file, void* buffer, size_t size){
 	if (fwrite (buffer, 1, size, file) != size){
@@ -85,7 +86,7 @@ uint8_t T_DISK::create (const char* path, uint32_t block_size, size_t block_coun
 
 	write_file (dest_file, &magic_num, sizeof(magic_num));
 
-	if (block_size - magic_num < 0){
+	if (p_block_size < sizeof(magic_num)){
 		ppanic(-1, "Invaild block size.");
 	};
 
@@ -157,4 +158,6 @@ T_DISK::~T_DISK (){
 	fclose (this -> file);
 	this -> block_size = 0;
 	return;
+};
+
 };

@@ -16,65 +16,88 @@
 */
 
 #include "logl.hpp"
-#include "io.hpp"
 #include "config.hpp"
 
-struct T_SPBLOCK {
-	uint32_t magic_num = MAGIC_NUM;
-	uint16_t version;
-	uint8_t lock;
-	uint8_t file_limit;
-	uint8_t __PRESERVE1;
-	uint8_t block_size;
-	uint64_t block_count;
-	uint64_t block_used;
-	uint64_t inode_count;
-	uint64_t inode_used;
-	uint64_t inode_entry;
-	uint64_t bitmap_entry;
-	uint8_t __PRESERVE2[0];
-};
+#include <cstring>
+#include <utility>
 
-struct T_INODE {
-	uint64_t ctime; // create time
-	uint64_t mtime; // edit time
-	uint64_t rtime; // access time
-	uint16_t attr;
-	uint16_t owner;
-	uint32_t __PRESERVE1;
-	uint64_t __PRESERVE2[2];
-	uint64_t size;
-	uint64_t file_count;
-	struct {
-		uint64_t direct[6];
-		uint64_t rdirect[3];
-		uint64_t drdirect[2];
-		uint64_t trdirect[1];
-	} data;
-	struct {
-		uint64_t direct[6];
-		uint64_t rdirect[3];
-		uint64_t drdirect[2];
-		uint64_t trdirect[1];
-	} dir;
-};
+namespace nofs {
 
-T_LOGPOOL::T_LOGPOOL (const char* path) {
-	this -> disk_file = std::fopen (path, "r+");
-	if (this -> disk_file == NULL) {
-		ppanic (-1, "The file is not avaibile.");
+T_LOGPNODE::T_LOGPNODE (void* buffer, size_t buffer_size) {
+	void* copyed_buffer = NULL;
+	copyed_buffer = malloc(buffer_size);
+	if (copyed_buffer == nullptr){
+		ppanic (-1, "Unable to alloc the memory.");
 	};
 
-	struct T_SPBLOCK super_block;
-	if (fread (&super_block, sizeof (super_block), 1, this -> disk_file) != sizeof(super_block)){
-		ppanic (-1, "The file is not avaibile.");
-	};
+	memcpy (copyed_buffer, buffer, buffer_size);
+	this -> buffer = copyed_buffer;
+	this -> size = buffer_size;
 
-	if (super_block.magic_num != MAGIC_NUM){
-		ppanic (-1, "Invaild file.");
-	};
+	fprintf(stderr, "Create a T_LOGPNODE\n");
 
-	this -> cache = std::list<void*> (512);
+	return;
 };
-T_LOGPOOL::~T_LOGPOOL () {};
 
+T_LOGPNODE::T_LOGPNODE(T_LOGPNODE&& move){
+	*this = std::move(move);
+	fprintf(stderr, "Move con a T_LOGPNODE\n");
+};
+
+T_LOGPNODE& T_LOGPNODE::operator=(T_LOGPNODE&& move){
+	if (this != &move){
+		this -> buffer = move.buffer;
+		this -> size = move.size;
+		move.buffer = nullptr;
+		move.size = 0;
+	};
+	fprintf(stderr, "Move a T_LOGPNODE\n");
+	return *this;
+};
+
+T_LOGPNODE::~T_LOGPNODE (){
+	if (this -> buffer != nullptr){
+		free (this -> buffer);
+	};
+	fprintf(stderr, "Delete a T_LOGPNODE\n");
+	return;
+};
+
+T_LOGPOOL::T_LOGPOOL (const char* path){
+	fprintf(stderr, "Create a T_LOGPOOL\n");
+
+	auto disk = new T_DISK(path);
+	this -> disk = disk;
+	this -> cache = std::unordered_map<size_t,T_LOGPNODE>(LOG_CACHE_SIZE);
+	return;
+};
+
+uint8_t T_LOGPOOL::write (size_t offset, void* buffer, size_t size){
+	this -> lock.lock();
+
+//	this -> cache.emplace(std::make_pair(offset, T_LOGPNODE(buffer, size)));
+	this -> cache.insert ({offset, T_LOGPNODE (buffer, size)});
+
+	this -> lock.unlock();
+	return 0;
+};
+
+uint8_t T_LOGPOOL::flush (){
+	this -> lock.lock();
+
+	for (auto item = this -> cache.begin();item != this -> cache.end();item++){
+		this -> disk -> write (item -> first, item -> second.buffer, item -> second.size);
+	};
+	this -> cache.clear();
+
+	this -> lock.unlock();
+	return 0;
+};
+
+
+T_LOGPOOL::~T_LOGPOOL (){
+	fprintf(stderr, "Delete a T_LOGPOOL\n");
+	delete this -> disk;
+};
+
+};

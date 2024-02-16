@@ -20,15 +20,14 @@ set (NOFS_VERSION ${NOFS_VERSION_MAJOR}.${NOFS_VERSION_MINOR}.${NOFS_VERSION_PAT
 
 set (TIMESTAMP G_COMPILE_TIME %y%m%d)
 
-set (SRC_LIST nofs.cpp blockl.cpp logl.cpp config.cpp)
-set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/add.h nofs.hpp io.hpp blockl.hpp logl.hpp config.hpp)
+set (SRC_LIST nofs.cpp logl.cpp config.cpp io.cpp )
+set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/add.h nofs.hpp io.hpp logl.hpp config.hpp io.hpp struct.hpp)
 
 configure_file (add.h.in ${PROJECT_BINARY_DIR}/src/add.h)
 
 include_directories (. ${PROJECT_BINARY_DIR}/src)
 
-add_link_options (-lpthread)
-add_compile_options (-Werror -Wall -Wextra)
+add_compile_options (-Werror -Wall -Wextra -g)
 
 set (CMAKE_C_STANDARD 11)
 set (CMAKE_C_STANDARD_REQUIRED True)

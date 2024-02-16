@@ -29,6 +29,8 @@
 		exit(ret_code);\
 	} while (0)
 
+namespace nofs {
+
 class T_DISK {
 private:
 	FILE* file;
@@ -48,6 +50,8 @@ public:
 	~T_DISK ();
 
 	size_t get_block_size();
+};
+
 };
 
 #endif

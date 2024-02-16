@@ -18,15 +18,28 @@
 #ifndef NO_FILE_SYSTEM_LOGL_HPP
 #define NO_FILE_SYSTEM_LOGL_HPP
 
+#include "io.hpp"
 #include <cstdio>
 #include <mutex>
-#include <list>
+#include <unordered_map>
+
+namespace nofs {
+
+class T_LOGPNODE {
+public:
+	size_t size;
+	void* buffer;
+	T_LOGPNODE (void* buffer, size_t size);
+	T_LOGPNODE (T_LOGPNODE&& move);
+	T_LOGPNODE& operator= (T_LOGPNODE&& move);
+	~T_LOGPNODE ();
+};
 
 class T_LOGPOOL {
 private:
 	std::mutex lock;
-	std::list<void*> cache;
-	std::FILE* disk_file;
+	std::unordered_map<size_t,T_LOGPNODE> cache;
+	T_DISK* disk;
 public:
 	T_LOGPOOL (const char* path);
 	~T_LOGPOOL ();
@@ -36,6 +49,8 @@ public:
 	uint8_t flush (void);
 	uint8_t check (void);
 	uint8_t sync (void);
+};
+
 };
 
 #endif

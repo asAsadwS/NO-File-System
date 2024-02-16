@@ -15,4 +15,9 @@
 	along with NO-File-System.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "config.h"
+#include <cstdint>
+
+namespace nofs {
+	uint32_t MAGIC_NUM = (('N' << 24) + ('O' << 16) + ('F' << 8) + 'S');
+	uint32_t LOG_CACHE_SIZE = 1024;
+};

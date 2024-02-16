@@ -18,8 +18,12 @@
 #ifndef NO_FILE_SYSTEM_NOFS_H
 #define NO_FILE_SYSTEM_NOFS_H
 
+namespace nofs {
+
 struct T_NOFS {
 
 };
+
+} 
 
 #endif
