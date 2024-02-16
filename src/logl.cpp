@@ -75,7 +75,6 @@ T_LOGPOOL::T_LOGPOOL (const char* path) {
 	};
 
 	this -> cache = std::list<void*> (512);
-
 };
 T_LOGPOOL::~T_LOGPOOL () {};
 

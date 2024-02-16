@@ -18,13 +18,36 @@
 #ifndef NO_FILE_SYSTEM_IO_HPP
 #define NO_FILE_SYSTEM_IO_HPP
 
-#include <stdio.h>
+#include <cstdio>
+#include <cstdint>
+#include <mutex>
 
 #define ppanic(ret_code, message) \
 	do { \
-		fprintf(stderr, "[NOFS]:%s:%d:%s:%s\n",__FILE__,__LINE__,__func__,message);\
+		fprintf(stderr, "[NOFS]:%s:%d:%s: %s\n",__FILE__,__LINE__,__func__,message);\
 		fflush(stderr);\
 		exit(ret_code);\
 	} while (0)
+
+class T_DISK {
+private:
+	FILE* file;
+	std::mutex lock;
+	size_t block_size;
+public:
+	static uint8_t create (const char* path, uint32_t block_size, size_t block_count);
+
+	uint8_t bread (size_t offset, void* buffer);
+	uint8_t bwrite (size_t offset, void* buffer);
+	
+	uint8_t read (size_t offset, void* buffer, size_t size);
+	uint8_t write (size_t offset, void* buffer, size_t size);
+
+	T_DISK (const char* file_path);
+	T_DISK (FILE* file);
+	~T_DISK ();
+
+	size_t get_block_size();
+};
 
 #endif

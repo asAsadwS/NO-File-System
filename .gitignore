@@ -1,6 +1,9 @@
 # Build Dir
 ./build
 
+# YouCompleteMe
+./.ycm_extra_conf.py
+
 # Prerequisites
 *.d
 
