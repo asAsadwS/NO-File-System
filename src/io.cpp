@@ -17,6 +17,7 @@
 
 #include "io.hpp"
 #include "config.hpp"
+#include "macro.hpp"
 #include <cstring>
 
 namespace nofs {

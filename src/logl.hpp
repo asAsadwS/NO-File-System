@@ -48,7 +48,8 @@ public:
 
 	uint8_t flush (void);
 	uint8_t check (void);
-	uint8_t sync (void);
+
+	T_DISK& indisk (void);
 };
 
 };

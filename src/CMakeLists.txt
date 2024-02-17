@@ -21,7 +21,7 @@ set (NOFS_VERSION ${NOFS_VERSION_MAJOR}.${NOFS_VERSION_MINOR}.${NOFS_VERSION_PAT
 set (TIMESTAMP G_COMPILE_TIME %y%m%d)
 
 set (SRC_LIST nofs.cpp logl.cpp config.cpp io.cpp )
-set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/add.h nofs.hpp io.hpp logl.hpp config.hpp io.hpp struct.hpp)
+set (HEADER_LIST ${PROJECT_BINARY_DIR}/src/add.h nofs.hpp io.hpp logl.hpp config.hpp io.hpp struct.hpp macro.hpp)
 
 configure_file (add.h.in ${PROJECT_BINARY_DIR}/src/add.h)
 

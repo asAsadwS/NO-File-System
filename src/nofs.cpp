@@ -17,9 +17,23 @@
 
 #include "./nofs.hpp"
 
+namespace nofs {
 
+T_NOFS::T_NOFS (const char* path){
+	this -> logpool = new T_LOGPOOL(path);
+	this -> disk = &(this -> logpool -> indisk());
 
-typedef struct T_NOFS T_NOFS;
+	return;
+};
 
+T_FILE&& T_NOFS::find (const char* path){
+
+};
+
+T_NOFS::~T_NOFS (){
+
+};
+
+};
 
 

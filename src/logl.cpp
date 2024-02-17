@@ -17,6 +17,7 @@
 
 #include "logl.hpp"
 #include "config.hpp"
+#include "macro.hpp"
 
 #include <cstring>
 #include <utility>
@@ -58,6 +59,7 @@ T_LOGPNODE& T_LOGPNODE::operator=(T_LOGPNODE&& move){
 T_LOGPNODE::~T_LOGPNODE (){
 	if (this -> buffer != nullptr){
 		free (this -> buffer);
+		fprintf(stderr, "Delete a Real T_LOGPNODE\n");
 	};
 	fprintf(stderr, "Delete a T_LOGPNODE\n");
 	return;
@@ -92,6 +94,10 @@ uint8_t T_LOGPOOL::flush (){
 
 	this -> lock.unlock();
 	return 0;
+};
+
+T_DISK& T_LOGPOOL::indisk (void){
+	return *this -> disk;
 };
 
 

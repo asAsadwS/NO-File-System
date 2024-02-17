@@ -18,12 +18,53 @@
 #ifndef NO_FILE_SYSTEM_NOFS_H
 #define NO_FILE_SYSTEM_NOFS_H
 
+#include "logl.hpp"
+
 namespace nofs {
 
-struct T_NOFS {
+class T_FILE;
 
+class T_NOFS {
+private:
+	T_LOGPOOL* logpool;
+	T_DISK* disk;
+public:
+	T_NOFS (const char* path);
+
+	T_FILE&& find (const char* path);
+
+	uint8_t read (T_FILE& file);
+	uint8_t write (T_FILE& file);
+	uint8_t flush (T_FILE& file);
+
+	~T_NOFS ();
 };
 
-} 
+class T_FILE {
+friend T_NOFS;
+private:
+	T_NOFS* ref_fs;
+	size_t node_num;
+	struct {
+		size_t size;
+		uint64_t ctime;
+		uint64_t mtime;
+		uint64_t htime;
+		uint64_t rtime;
+	} file;
+public:
+	T_FILE ();
+	T_FILE (T_FILE&& move);
+	~T_FILE();
+
+	T_FILE& operator = (T_FILE&& move);
+
+	uint8_t read (size_t offset, void* buffer, size_t size);
+	uint8_t write (size_t offset, void* buffer, size_t size);
+	const char* path (void);
+	size_t size (void);
+};
+
+}; 
 
 #endif
