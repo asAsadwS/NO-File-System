@@ -14,7 +14,7 @@
 #   along with NO-File-System.  If not, see <https://www.gnu.org/licenses/>.
 
 set (NOFS_VERSION_MAJOR 0)
-set (NOFS_VERSION_MINOR 0)
+set (NOFS_VERSION_MINOR 1)
 set (NOFS_VERSION_PATCH 0)
 set (NOFS_VERSION ${NOFS_VERSION_MAJOR}.${NOFS_VERSION_MINOR}.${NOFS_VERSION_PATCH})
 

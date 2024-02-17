@@ -18,7 +18,19 @@
 #ifndef NO_FILE_SYSTEM_ADD_H
 #define NO_FILE_SYSTEM_ADD_H
 
-#define G_COMPILE_TIME "@G_COMPILE_TIME@"
+#include <cstdint>
+
+namespace nofs {
+
+const char* G_COMPILE_TIME = "@G_COMPILE_TIME@";
+uint32_t G_VERSION_MAJOR = @NOFS_VERSION_MAJOR@;
+uint32_t G_VERSION_MINOR = @NOFS_VERSION_MINOR@;
+uint32_t G_VERSION_PATCH = @NOFS_VERSION_PATCH@;
+
+const char* G_VERSION = "@NOFS_VERSION@";
+
+
+};
 
 #endif
 
