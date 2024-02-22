@@ -18,6 +18,13 @@
 #ifndef NO_FILE_SYSTEM_INODE_HPP
 #define NO_FILE_SYSTEM_INODE_HPP
 
+namespace nofs {
+
+class T_INODE {
+};
+
+
+};
 
 
 #endif

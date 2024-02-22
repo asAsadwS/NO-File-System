@@ -20,4 +20,5 @@
 namespace nofs {
 	uint32_t MAGIC_NUM = (('N' << 24) + ('O' << 16) + ('F' << 8) + 'S');
 	uint32_t LOG_CACHE_SIZE = 1024;
+	uint32_t BLOCK_GROUP_EACH_COUNT = 1024;
 };

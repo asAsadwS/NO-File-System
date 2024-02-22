@@ -25,11 +25,13 @@ namespace nofs {
 
 struct T_SPBLOCK {
 	uint32_t magic_num = MAGIC_NUM;
-	uint16_t version;
-	uint8_t lock;
-	uint8_t file_limit;
-	uint8_t __PRESERVE1;
 	uint8_t block_size;
+	struct {
+		uint16_t major;
+		uint16_t minor;
+		uint16_t patch;
+	} version;
+	uint8_t lock;
 	uint64_t block_count;
 	uint64_t block_used;
 	uint64_t inode_count;

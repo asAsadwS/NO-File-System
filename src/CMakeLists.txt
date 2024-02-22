@@ -13,10 +13,6 @@
 #   You should have received a copy of the GNU General Public License
 #   along with NO-File-System.  If not, see <https://www.gnu.org/licenses/>.
 
-set (NOFS_VERSION_MAJOR 0)
-set (NOFS_VERSION_MINOR 1)
-set (NOFS_VERSION_PATCH 0)
-set (NOFS_VERSION ${NOFS_VERSION_MAJOR}.${NOFS_VERSION_MINOR}.${NOFS_VERSION_PATCH})
 
 set (TIMESTAMP G_COMPILE_TIME %y%m%d)
 
@@ -42,5 +38,3 @@ set_target_properties (nofs PROPERTIES VERSION ${NOFS_VERSION} SOVERSION ${NOFS_
 install (TARGETS nofs nofs_s LIBRARY DESTINATION lib ARCHIVE DESTINATION)
 
 install (FILES ${HEADER_LIST} DESTINATION include/nofs)
-
-

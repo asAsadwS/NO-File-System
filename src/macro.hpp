@@ -18,6 +18,8 @@
 #ifndef NO_FILE_SYSTEM_MACRO_HPP
 #define NO_FILE_SYSTEM_MACRO_HPP
 
+#include <cstdint>
+
 #define ppanic(ret_code, message) \
 	do { \
 		fprintf(stderr, "[NOFS]:%s:%d:%s: %s\n",__FILE__,__LINE__,__func__,message);\

@@ -29,6 +29,7 @@ private:
 	T_LOGPOOL* logpool;
 	T_DISK* disk;
 public:
+	static uint8_t create (const char* path, uint32_t block_size, size_t block_count);
 	T_NOFS (const char* path);
 
 	T_FILE&& find (const char* path);
@@ -45,6 +46,7 @@ friend T_NOFS;
 private:
 	T_NOFS* ref_fs;
 	size_t node_num;
+	size_t _padding;
 	struct {
 		size_t size;
 		uint64_t ctime;
