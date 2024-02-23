@@ -25,18 +25,20 @@ project (NOFS LANGUAGES C CXX VERSION ${NOFS_VERSION})
 
 add_subdirectory (src)
 
-include (CMakePackageConfigHelpers)
+#include (CMakePackageConfigHelpers)
 
-write_basic_package_version_file (
-	${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-	VERSION ${NOFS_VERSION}
-	COMPATIBILITY SameMinorVersion
-	)
+#write_basic_package_version_file (
+#	${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+#	VERSION ${NOFS_VERSION}
+#	COMPATIBILITY SameMinorVersion
+#	)
 
-configure_package_config_file (
-	${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
-	${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-	INSTALL_DESTINATION lib/cmake
-	)
+#configure_package_config_file (
+#	${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+#	${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+#	NO_SET_AND_CHECK_MACRO
+#	PATH_VARS CMAKE_INSTALL_PREFIX
+#	INSTALL_DESTINATION lib/cmake
+#	)
 
-install (FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION lib/cmake/${PROJECT_NAME})
+#install (FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION lib/cmake/${PROJECT_NAME})
